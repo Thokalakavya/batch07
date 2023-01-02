@@ -1,0 +1,6 @@
+val peopleDF=Seq(("kavya","India"),("manvi","India"),("India","banglore")).toDF("first_name","city")
+peopleDF.show()
+val citiesDF=Seq(("India","Telangana",2.5),("banglore","India",2.3)).toDF("country","population")
+citiesDF.show()
+peopleDF.join(broadcast(citiesDF),peopleDF("city")<=>citiesDF("city")).show()
+peopleDF.join(broadcast(citiesDF),peopleDF("city")<=>citiesDF("city")).explain()
