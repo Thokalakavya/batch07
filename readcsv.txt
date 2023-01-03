@@ -1,0 +1,16 @@
+Read CSV file in spark and remove the duplicates and then load data into hive
+
+
+
+Read CSV file in spark:-
+
+var sourcecsv=spark.read.option("header","true").option("delimiter",",").csv("/Sparkdata/Maths.csv")
+
+Removing Duplicates:-
+
+spark.sql("select school,age,travel,rank() over (partititon by age order by travel)as rank from Maths").show()
+
+Loading a table into hive:-
+sourcecsv.write.format("csv").saveAsTable("Test")
+spark.sql("show tables").show()
+spark.sql("select * from Test").show()
